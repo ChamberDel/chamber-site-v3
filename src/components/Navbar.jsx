@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -6,24 +7,28 @@ export default function Navbar() {
   return (
     <header className="bg-white fixed top-0 w-full z-50 shadow-md">
       <nav className="container mx-auto px-4 flex items-center justify-between h-16">
-        <div className="text-2xl font-bold">Chamber</div>
+        <a href="/" className="flex items-center space-x-2">
+		  <img 
+			src="/chamber-icon.png" 
+			alt="Chamber Modular Logo" 
+			className="h-8 w-8 sm:h-10 sm:w-10"
+			
+		  />
+		  
+		  <span className="font-bold text-xl">Chamber Modular</span>
+		  
+		</a>	
 
         <div className="hidden md:flex space-x-6">
-          <a href="#home" className="hover:text-gray-600">Home</a>
-          <a href="#about" className="hover:text-gray-600">About</a>
-          <a href="#services" className="hover:text-gray-600">Services</a>
-          <a href="#contact" className="hover:text-gray-600">Contact</a>
+          <Link to="/" className="hover:text-gray-600">Home</Link>
+          <Link to="/reserve" className="hover:text-gray-600">Reserve</Link>
+          <Link to="/shipping" className="hover:text-gray-600">Shipping</Link>
+          <Link to="/faq" className="hover:text-gray-600">FAQ</Link>
         </div>
 
         <div className="md:hidden flex items-center">
           <button onClick={() => setIsOpen(!isOpen)}>
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {isOpen ? (
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               ) : (
@@ -36,10 +41,10 @@ export default function Navbar() {
 
       {isOpen && (
         <div className="md:hidden bg-white px-4 pt-2 pb-4 space-y-2">
-          <a href="#home" className="block hover:text-gray-600">Home</a>
-          <a href="#about" className="block hover:text-gray-600">About</a>
-          <a href="#services" className="block hover:text-gray-600">Services</a>
-          <a href="#contact" className="block hover:text-gray-600">Contact</a>
+          <Link to="/" className="block hover:text-gray-600">Home</Link>
+          <Link to="/reserve" className="block hover:text-gray-600">Reserve</Link>
+          <Link to="/shipping" className="block hover:text-gray-600">Shipping</Link>
+          <Link to="/faq" className="block hover:text-gray-600">FAQ</Link>
         </div>
       )}
     </header>
