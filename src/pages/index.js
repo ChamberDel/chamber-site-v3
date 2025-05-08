@@ -1,4 +1,4 @@
-import SoftCTA from '../components/SoftCTA'; // Import comes first
+import SoftCTA from '../components/SoftCTA'; 
 
 export default function Home() {
   return (
