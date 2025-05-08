@@ -7,17 +7,13 @@ export default function Navbar() {
   return (
     <header className="bg-white fixed top-0 w-full z-50 shadow-md">
       <nav className="container mx-auto px-4 flex items-center justify-between h-16">
-        <a href="/" className="flex items-center space-x-2">
-		  <img 
-			src="/chamber-icon.png" 
-			alt="Chamber Modular Logo" 
-			className="h-8 w-8 sm:h-10 sm:w-10"
-			
-		  />
-		  
-		  <span className="font-bold text-xl">Chamber Modular</span>
-		  
-		</a>	
+        <a href="/" className="flex items-center">
+          <img 
+            src="/chamber-icon.webp" 
+            alt="Chamber Logo" 
+            className="h-10 w-auto"
+          />
+        </a>	
 
         <div className="hidden md:flex space-x-6">
           <Link to="/" className="hover:text-gray-600">Home</Link>

@@ -1,8 +1,13 @@
+import SoftCTA from '../components/SoftCTA'; // Import comes first
+
 export default function Home() {
   return (
-    <div>
-      <h1>Welcome to Chamber Modular Homes</h1>
-      <p>Quality housing, built fast.</p>
-    </div>
+    <main className="p-8 text-center">
+      <h1 className="text-4xl font-bold mb-4">Welcome to Chamber Modular</h1>
+      <p className="text-lg mb-12">Modular Homes Designed for Resilience and Style</p>
+
+      {/* Insert the Soft CTA here */}
+      <SoftCTA />
+    </main>
   );
 }
