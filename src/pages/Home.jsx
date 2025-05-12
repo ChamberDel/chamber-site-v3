@@ -1,6 +1,8 @@
+import PhotoSlider from "./PhotoSlider";
+
 export default function Home() {
   return (
-    <main className="p-8 text-center" role="main">
+    <main className="pt-24 px-4 text-center" role="main">
       <header className="mb-6">
         <h1 className="text-5xl font-extrabold text-gray-900">
           Modern. Resilient. Yours.
@@ -18,6 +20,8 @@ export default function Home() {
       >
         Let's Build Together
       </a>
+
+      <PhotoSlider />
     </main>
   );
 }

@@ -7,19 +7,21 @@ export default function Navbar() {
   return (
     <header className="bg-white fixed top-0 w-full z-50 shadow-md">
       <nav className="container mx-auto px-4 flex items-center justify-between h-16">
-        <a href="/" className="flex items-center">
+        <Link to="/" className="flex items-center">
           <img 
-            src="/chamber-icon.webp" 
+            src="/chamber-logo.png" 
             alt="Chamber Logo" 
-            className="h-10 w-auto"
+            className="h-[110px] w-auto my-auto"
           />
-        </a>	
+        </Link>
 
         <div className="hidden md:flex space-x-6">
           <Link to="/" className="hover:text-gray-600">Home</Link>
           <Link to="/reserve" className="hover:text-gray-600">Reserve</Link>
           <Link to="/shipping" className="hover:text-gray-600">Shipping</Link>
           <Link to="/faq" className="hover:text-gray-600">FAQ</Link>
+          <Link to="/testimonials" className="hover:text-gray-600">Testimonials</Link>
+          <Link to="/support" className="hover:text-gray-600">Support</Link>
         </div>
 
         <div className="md:hidden flex items-center">
@@ -41,6 +43,8 @@ export default function Navbar() {
           <Link to="/reserve" className="block hover:text-gray-600">Reserve</Link>
           <Link to="/shipping" className="block hover:text-gray-600">Shipping</Link>
           <Link to="/faq" className="block hover:text-gray-600">FAQ</Link>
+          <Link to="/testimonials" className="block hover:text-gray-600">Testimonials</Link>
+          <Link to="/support" className="block hover:text-gray-600">Support</Link>
         </div>
       )}
     </header>

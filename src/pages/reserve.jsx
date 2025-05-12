@@ -71,6 +71,7 @@ export default function Reserve() {
             className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-500"
           >
             <option value="">-- Choose One --</option>
+			<option value="Custom">Custom - up to 800 sq ft</option>
             <option value="1-bedroom">1 Bedroom - 400 sq ft</option>
             <option value="2-bedroom">2 Bedroom - 800 sq ft</option>
           </select>
