@@ -6,6 +6,8 @@ export default function Header() {
       <a href="/faq">FAQ</a>
       <a href="/shipping">Shipping</a>
       <a href="/reserve">Reserve</a>
+	  <a href="/support">support</a>
+	  <a href="/testimonials">Reserve</a>
     </nav>
   );
 }
