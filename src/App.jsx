@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
+import Index from './pages/index.jsx';
 import Reserve from "./pages/Reserve";
 import Shipping from "./pages/Shipping";
 import FAQ from "./pages/FAQ";
@@ -13,7 +13,7 @@ export default function App() {
     <Router>
       <Navbar />
       <Routes>
-        <Route path="*" element={<Home />} />
+        <Route path="*" element={<Index />} />
         <Route path="/reserve" element={<Reserve />} />
         <Route path="/shipping" element={<Shipping />} />
         <Route path="/faq" element={<FAQ />} />
