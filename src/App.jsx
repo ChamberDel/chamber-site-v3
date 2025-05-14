@@ -1,26 +1,22 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Index from './pages/index.jsx';
-import Reserve from "./pages/Reserve";
-import Shipping from "./pages/Shipping";
-import FAQ from "./pages/FAQ";
-import Support from "./pages/Support";
-import Testimonials from "./pages/Testimonials";
-import TestimonialBubble from "./components/TestimonialBubble";
+import Register from './pages/Register';
+import Contact from './pages/Contact';
+import BuildYourHome from './pages/BuildYourHome';
+import Gallery from './pages/Gallery';
 
-export default function App() {
-  return (
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="*" element={<Index />} />
-        <Route path="/reserve" element={<Reserve />} />
-        <Route path="/shipping" element={<Shipping />} />
-        <Route path="/faq" element={<FAQ />} />
-        <Route path="/support" element={<Support />} />
-        <Route path="/testimonials" element={<Testimonials />} />
-      </Routes>
-      <TestimonialBubble />
-    </Router>
-  );
-}
+<Routes>
+  <Route path="/" element={<Index />} />
+  <Route path="/register" element={<Register />} />
+  <Route path="/contact" element={<Contact />} />
+  <Route path="/build-your-home" element={<BuildYourHome />} />
+  <Route path="/gallery" element={<Gallery />} />
+
+  {/* Existing Routes */}
+  <Route path="/reserve" element={<Reserve />} />
+  <Route path="/shipping" element={<Shipping />} />
+  <Route path="/faq" element={<FAQ />} />
+  <Route path="/support" element={<Support />} />
+  <Route path="/testimonials" element={<Testimonials />} />
+
+  {/* Optional fallback */}
+  <Route path="*" element={<Index />} />
+</Routes>
