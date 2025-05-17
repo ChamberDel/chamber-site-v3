@@ -1,9 +1,9 @@
 import PhotoSlider from "@/components/PhotoSlider";
-import { Link } from "react-router-dom"; // Only if you're using react-router
+import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
-    <main className="pt-32 p-8 text-center space-y-12" role="main">
+<main className="pt-[120px] p-8 text-center space-y-12" role="main">
       <PhotoSlider />
 
       <header className="mb-6">
@@ -11,19 +11,20 @@ export default function Home() {
           Modern. Resilient. Yours.
         </h1>
         <p className="text-lg text-gray-600 max-w-xl mx-auto mt-4">
-          At Chamber Modular, we design innovative homes that reflect your needs, values, and future. 
+          At Chamber Modular, we design innovative homes that reflect your needs, values, and future.
           Built to last. Built for you.
         </p>
       </header>
 
       {/* Primary CTA */}
-      <a 
-        href="/build-your-home"
-        className="inline-block bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition"
-        aria-label="Start building your modular home"
-      >
-        Let's Build Together
-      </a>
+      <Link to="/build-your-home">
+        <button
+          className="inline-block bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition"
+          aria-label="Start building your modular home"
+        >
+          Let's Build Together
+        </button>
+      </Link>
 
       {/* Secondary CTA Options */}
       <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto pt-12">
