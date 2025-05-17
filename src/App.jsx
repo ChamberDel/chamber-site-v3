@@ -33,25 +33,29 @@ function Home() {
           Let's Build Together
         </button>
       </a>
-
+	  
       <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto pt-12">
-        <a href="/register" className="block p-6 border rounded-xl hover:shadow-lg transition">
+        <Link to="/register" className="block p-6 border rounded-xl hover:shadow-lg transition">
           <h3 className="font-semibold text-lg mb-2 text-gray-900">Register</h3>
           <p className="text-gray-600 text-sm">Sign up to get early updates and exclusive offers.</p>
-        </a>
-        <a href="/contact" className="block p-6 border rounded-xl hover:shadow-lg transition">
+        </Link>
+		
+        <Link to="/support" className="block p-6 border rounded-xl hover:shadow-lg transition">
           <h3 className="font-semibold text-lg mb-2 text-gray-900">Contact Us</h3>
           <p className="text-gray-600 text-sm">Got questions? Reach out to our team anytime.</p>
-        </a>
-        <a href="/build-your-home" className="block p-6 border rounded-xl hover:shadow-lg transition">
+        </Link>
+		
+        <Link to="/build-your-home" className="block p-6 border rounded-xl hover:shadow-lg transition">
           <h3 className="font-semibold text-lg mb-2 text-gray-900">Build Your Home</h3>
           <p className="text-gray-600 text-sm">Use our form to get a personalized estimate.</p>
-        </a>
-        <a href="/gallery" className="block p-6 border rounded-xl hover:shadow-lg transition">
+        </Link>
+		
+        <Link to="/gallery" className="block p-6 border rounded-xl hover:shadow-lg transition">
           <h3 className="font-semibold text-lg mb-2 text-gray-900">Gallery</h3>
           <p className="text-gray-600 text-sm">Browse sample interiors and floor plans.</p>
-        </a>
+        </Link>
       </section>
+	  
     </main>
   );
 }
