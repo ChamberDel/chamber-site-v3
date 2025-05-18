@@ -1,8 +1,8 @@
 // src/App.jsx
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import TestimonialBubble from "./components/TestimonialBubble"; // ✅ Import here
+import TestimonialBubble from "./components/TestimonialBubble";
 import PhotoSlider from "./components/PhotoSlider";
 import FAQ from "./pages/faq";
 import Reserve from "./pages/reserve";
@@ -28,34 +28,34 @@ function Home() {
         </p>
       </header>
 
-      <a href="/build-your-home">
-        <button className="bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition">
-          Let's Build Together
-        </button>
-      </a>
-	  
+      <Link 
+        to="/build-your-home"
+        className="inline-block bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition"
+      >
+        Let's Build Together
+      </Link>
+
       <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto pt-12">
         <Link to="/register" className="block p-6 border rounded-xl hover:shadow-lg transition">
           <h3 className="font-semibold text-lg mb-2 text-gray-900">Register</h3>
           <p className="text-gray-600 text-sm">Sign up to get early updates and exclusive offers.</p>
         </Link>
-		
+
         <Link to="/support" className="block p-6 border rounded-xl hover:shadow-lg transition">
           <h3 className="font-semibold text-lg mb-2 text-gray-900">Contact Us</h3>
           <p className="text-gray-600 text-sm">Got questions? Reach out to our team anytime.</p>
         </Link>
-		
+
         <Link to="/build-your-home" className="block p-6 border rounded-xl hover:shadow-lg transition">
           <h3 className="font-semibold text-lg mb-2 text-gray-900">Build Your Home</h3>
           <p className="text-gray-600 text-sm">Use our form to get a personalized estimate.</p>
         </Link>
-		
+
         <Link to="/gallery" className="block p-6 border rounded-xl hover:shadow-lg transition">
           <h3 className="font-semibold text-lg mb-2 text-gray-900">Gallery</h3>
           <p className="text-gray-600 text-sm">Browse sample interiors and floor plans.</p>
         </Link>
       </section>
-	  
     </main>
   );
 }
@@ -75,7 +75,7 @@ function App() {
         <Route path="/testimonials" element={<Testimonials />} />
         <Route path="/support" element={<Support />} />
       </Routes>
-      <TestimonialBubble /> {/* ✅ Always visible on every page */}
+      <TestimonialBubble /> {/* Always visible floating button */}
     </>
   );
 }
