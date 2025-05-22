@@ -1,0 +1,9 @@
+{
+  "name": "chamber-email-api",
+  "version": "1.0.0",
+  "main": "api/send-email.js",
+  "type": "commonjs",
+  "dependencies": {
+    "nodemailer": "^6.9.1"
+  }
+}
