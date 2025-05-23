@@ -8,17 +8,42 @@ const SupportForm = () => {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // You can integrate with an API or email service here.
-    console.log("Submitted:", formData);
-    setSubmitted(true);
-    setFormData({ name: "", email: "", message: "" });
+    setSubmitted(false);
+    setError(null);
+
+    try {
+      const response = await fetch("https://email-server-nine-gules.vercel.app/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          to: "dzignlabs@gmail.com",
+          subject: `Message from ${formData.name}`,
+          text: `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitted(true);
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        setError(data.message || "Something went wrong. Please try again.");
+      }
+    } catch (err) {
+      console.error("Error submitting form:", err);
+      setError("Network error. Please try again.");
+    }
   };
 
   return (
@@ -32,10 +57,14 @@ const SupportForm = () => {
           onSubmit={handleSubmit}
           className="space-y-6 bg-white p-6 rounded-xl shadow-md"
         >
+          {error && (
+            <div className="text-red-600 font-semibold text-center">
+              {error}
+            </div>
+          )}
+
           <div>
-            <label className="block mb-1 font-medium text-gray-700">
-              Name
-            </label>
+            <label className="block mb-1 font-medium text-gray-700">Name</label>
             <input
               name="name"
               type="text"
@@ -48,9 +77,7 @@ const SupportForm = () => {
           </div>
 
           <div>
-            <label className="block mb-1 font-medium text-gray-700">
-              Email
-            </label>
+            <label className="block mb-1 font-medium text-gray-700">Email</label>
             <input
               name="email"
               type="email"
@@ -63,9 +90,7 @@ const SupportForm = () => {
           </div>
 
           <div>
-            <label className="block mb-1 font-medium text-gray-700">
-              Message
-            </label>
+            <label className="block mb-1 font-medium text-gray-700">Message</label>
             <textarea
               name="message"
               rows="5"
@@ -90,4 +115,3 @@ const SupportForm = () => {
 };
 
 export default SupportForm;
-
