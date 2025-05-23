@@ -21,8 +21,9 @@ module.exports = async (req, res) => {
     });
 
     const mailOptions = {
-      from: `"${name}" <${email}>`,
-      to: process.env.EMAIL_USER,
+      from: `"${name}" <${process.env.EMAIL_USER}>`,
+      replyTo: email,
+	  to: process.env.EMAIL_USER,
       subject: `New Contact Form Submission from ${name}`,
       text: `You received a message from your website contact form:\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
     };
