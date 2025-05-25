@@ -1,17 +1,16 @@
 const nodemailer = require("nodemailer");
 
 module.exports = async (req, res) => {
-  // ✅ CORS HEADERS - Needed for preflight and actual request
-  res.setHeader("Access-Control-Allow-Origin", "*"); // ← or specify your domain
+  // CORS HEADERS
+  res.setHeader("Access-Control-Allow-Origin", "*"); // or your domain
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  // ✅ Handle preflight OPTIONS request
+  // Handle preflight
   if (req.method === "OPTIONS") {
     return res.status(200).end();
   }
 
-  // ✅ Block non-POST methods
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Only POST requests allowed" });
   }
@@ -36,11 +35,10 @@ module.exports = async (req, res) => {
       replyTo: email,
       to: process.env.EMAIL_USER,
       subject: `New Contact Form Submission from ${name}`,
-      text: `You received a message from your website contact form:\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+      text: `You received a message:\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
     };
 
     await transporter.sendMail(mailOptions);
-
     return res.status(200).json({ message: "Email sent successfully!" });
   } catch (error) {
     console.error("Email sending failed:", error);
