@@ -1,6 +1,16 @@
 const nodemailer = require("nodemailer");
 
 module.exports = async (req, res) => {
+  // Set CORS headers for all responses
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  // Handle preflight requests
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Only POST requests allowed" });
   }
@@ -23,7 +33,7 @@ module.exports = async (req, res) => {
     const mailOptions = {
       from: `"${name}" <${process.env.EMAIL_USER}>`,
       replyTo: email,
-	  to: process.env.EMAIL_USER,
+      to: process.env.EMAIL_USER,
       subject: `New Contact Form Submission from ${name}`,
       text: `You received a message from your website contact form:\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
     };
