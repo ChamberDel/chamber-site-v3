@@ -20,17 +20,16 @@ const SupportForm = () => {
     setError(null);
 
     try {
-      const response = await fetch("https://email-server-nine-gules.vercel.app/api/send-email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          to: "dzignlabs@gmail.com",
-          subject: `Message from ${formData.name}`,
-          text: `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`,
-        }),
-      });
+      const response = await fetch(
+        "https://email-server-git-main-william-barrys-projects.vercel.app/api/send-email",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       const data = await response.json();
 
