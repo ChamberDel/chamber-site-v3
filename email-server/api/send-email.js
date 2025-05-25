@@ -1,16 +1,17 @@
 const nodemailer = require("nodemailer");
 
 module.exports = async (req, res) => {
-  // Set CORS headers for all responses
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  // ✅ CORS HEADERS - Needed for preflight and actual request
+  res.setHeader("Access-Control-Allow-Origin", "*"); // ← or specify your domain
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  // Handle preflight requests
+  // ✅ Handle preflight OPTIONS request
   if (req.method === "OPTIONS") {
     return res.status(200).end();
   }
 
+  // ✅ Block non-POST methods
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Only POST requests allowed" });
   }
