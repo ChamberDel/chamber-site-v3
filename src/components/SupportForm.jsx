@@ -20,13 +20,16 @@ const SupportForm = () => {
     setError(null);
 
     try {
-      const response = await fetch("https://vercel.com/william-barrys-projects/email-server/api/send-email",{
+      const response = await fetch(
+        "https://william-barrys-projects-email-server.vercel.app/api/send-email",
+        {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formData)
-      });
+          body: JSON.stringify(formData),
+        }
+      );
 
       const data = await response.json();
 
@@ -60,7 +63,9 @@ const SupportForm = () => {
           )}
 
           <div>
-            <label className="block mb-1 font-medium text-gray-700">Name</label>
+            <label className="block mb-1 font-medium text-gray-700">
+              Name
+            </label>
             <input
               name="name"
               type="text"
@@ -73,7 +78,9 @@ const SupportForm = () => {
           </div>
 
           <div>
-            <label className="block mb-1 font-medium text-gray-700">Email</label>
+            <label className="block mb-1 font-medium text-gray-700">
+              Email
+            </label>
             <input
               name="email"
               type="email"
@@ -86,7 +93,9 @@ const SupportForm = () => {
           </div>
 
           <div>
-            <label className="block mb-1 font-medium text-gray-700">Message</label>
+            <label className="block mb-1 font-medium text-gray-700">
+              Message
+            </label>
             <textarea
               name="message"
               rows="5"
@@ -111,3 +120,4 @@ const SupportForm = () => {
 };
 
 export default SupportForm;
+
