@@ -1,26 +1,19 @@
 const nodemailer = require("nodemailer");
-console.log("Contact API hit", req.method);
 
-module.exports = async (req, res) => {
-  // ✅ CORS HEADERS
+export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "https://chamber-site-v3.vercel.app");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  // ✅ Handle OPTIONS preflight
   if (req.method === "OPTIONS") {
     return res.status(200).end();
   }
 
   if (req.method !== "POST") {
-    return res.status(405).json({ message: "Only POST requests allowed" });
+    return res.status(405).json({ message: "Method Not Allowed" });
   }
 
   const { name, email, message } = req.body;
-
-  if (!name || !email || !message) {
-    return res.status(400).json({ message: "Missing required fields" });
-  }
 
   try {
     const transporter = nodemailer.createTransport({
@@ -31,19 +24,17 @@ module.exports = async (req, res) => {
       },
     });
 
-    const mailOptions = {
+    await transporter.sendMail({
       from: `"${name}" <${process.env.EMAIL_USER}>`,
-      replyTo: email,
       to: process.env.EMAIL_USER,
-      subject: `New Contact Form Submission from ${name}`,
-      text: `You received a message from your website contact form:\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
-    };
+      subject: `Message from ${name}`,
+      text: `Email: ${email}\nMessage:\n${message}`,
+    });
 
-    await transporter.sendMail(mailOptions);
     return res.status(200).json({ message: "Email sent successfully!" });
 
-  } catch (error) {
-    console.error("Email sending failed:", error);
-    return res.status(500).json({ message: "Failed to send email. Try again later." });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Failed to send email." });
   }
-};
+}
