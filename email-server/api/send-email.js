@@ -1,11 +1,23 @@
-// /api/send-email.js
 const nodemailer = require("nodemailer");
 
-export default async (req, res) => {
-  if (req.method === "OPTIONS") return res.status(200).end();
-  if (req.method !== "POST") return res.status(405).json({ message: "Only POST requests allowed" });
+module.exports = async (req, res) => {
+  // ✅ CORS HEADERS - Needed for preflight and actual request
+  res.setHeader("Access-Control-Allow-Origin", "*"); // ← or specify your domain
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  // ✅ Handle preflight OPTIONS request
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
+  // ✅ Block non-POST methods
+  if (req.method !== "POST") {
+    return res.status(405).json({ message: "Only POST requests allowed" });
+  }
 
   const { name, email, message } = req.body;
+
   if (!name || !email || !message) {
     return res.status(400).json({ message: "Missing required fields" });
   }
@@ -19,17 +31,19 @@ export default async (req, res) => {
       },
     });
 
-    await transporter.sendMail({
+    const mailOptions = {
       from: `"${name}" <${process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_USER,
       replyTo: email,
-      subject: `Contact form: ${name}`,
-      text: message,
-    });
+      to: process.env.EMAIL_USER,
+      subject: `New Contact Form Submission from ${name}`,
+      text: `You received a message from your website contact form:\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+    };
 
-    res.status(200).json({ message: "Email sent successfully!" });
-  } catch (err) {
-    console.error("Mail error:", err);
-    res.status(500).json({ message: "Failed to send email. Try again later." });
+    await transporter.sendMail(mailOptions);
+
+    return res.status(200).json({ message: "Email sent successfully!" });
+  } catch (error) {
+    console.error("Email sending failed:", error);
+    return res.status(500).json({ message: "Failed to send email. Try again later." });
   }
 };
