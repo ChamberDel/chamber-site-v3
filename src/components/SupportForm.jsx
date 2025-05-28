@@ -21,7 +21,7 @@ const SupportForm = () => {
 
     try {
       const response = await fetch(
-        "https://email-server-nine-gules.vercel.app/api/send-email",
+        "https://vercel.com/william-barrys-projects/email-server/api/send-email,
         {
           method: "POST",
           headers: {
