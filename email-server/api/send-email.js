@@ -1,17 +1,17 @@
 const nodemailer = require("nodemailer");
+console.log("Contact API hit", req.method);
 
 module.exports = async (req, res) => {
-  // ✅ CORS HEADERS - Needed for preflight and actual request
-  res.setHeader("Access-Control-Allow-Origin", "*"); // ← or specify your domain
+  // ✅ CORS HEADERS
+  res.setHeader("Access-Control-Allow-Origin", "https://chamber-site-v3.vercel.app");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  // ✅ Handle preflight OPTIONS request
+  // ✅ Handle OPTIONS preflight
   if (req.method === "OPTIONS") {
     return res.status(200).end();
   }
 
-  // ✅ Block non-POST methods
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Only POST requests allowed" });
   }
@@ -40,8 +40,8 @@ module.exports = async (req, res) => {
     };
 
     await transporter.sendMail(mailOptions);
-
     return res.status(200).json({ message: "Email sent successfully!" });
+
   } catch (error) {
     console.error("Email sending failed:", error);
     return res.status(500).json({ message: "Failed to send email. Try again later." });
