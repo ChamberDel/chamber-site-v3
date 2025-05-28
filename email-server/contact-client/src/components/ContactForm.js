@@ -12,7 +12,7 @@ const ContactForm = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch("https://william-barry-project.vercel.app/api/send-email", {
+      const res = await fetch("https://email-server-nine-gules.vercel.app/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
