@@ -1,10 +1,20 @@
+import { useState } from "react";
+
 export default function Register() {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+  });
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
     const data = {
-      email: formData.get("email"),
-      message: `Name: ${formData.get("name")}`,
+      email: form.email,
+      message: `Register - Name: ${form.name}`,
     };
 
     const response = await fetch("https://email-server-git-main-william-barrys-projects.vercel.app/api/send-email", {
@@ -15,6 +25,7 @@ export default function Register() {
 
     if (response.ok) {
       alert("Thank you for registering your interest!");
+      setForm({ name: "", email: "" }); // Reset form
     } else {
       alert("Something went wrong. Please try again.");
     }
@@ -32,6 +43,8 @@ export default function Register() {
           type="text"
           name="name"
           placeholder="Full Name"
+          value={form.name}
+          onChange={handleChange}
           className="w-full border p-3 rounded"
           required
         />
@@ -39,6 +52,8 @@ export default function Register() {
           type="email"
           name="email"
           placeholder="Email Address"
+          value={form.email}
+          onChange={handleChange}
           className="w-full border p-3 rounded"
           required
         />
