@@ -13,19 +13,25 @@ export default function BuildYourHome() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await fetch("https://email-server-git-main-william-barrys-projects.vercel.app/api/send-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          subject: "New Build Your Home Request",
-          html: `<p><strong>Home Type:</strong> ${form.homeType}</p><p><strong>Location:</strong> ${form.location}</p><p><strong>Budget:</strong> ${form.budget}</p>`,
-        }),
-      });
-      alert("Build request submitted!");
+    const data = {
+      email: "noreply@chamber-site.com",
+      message: `Build Your Home Form:
+Home Type: ${form.homeType}
+Location: ${form.location}
+Budget: ${form.budget}`,
+    };
+
+    const response = await fetch("https://email-server-git-main-william-barrys-projects.vercel.app/api/send-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      alert("Your request has been submitted!");
       setForm({ homeType: "", location: "", budget: "" });
-    } catch (error) {
-      alert("There was an error. Please try again.");
+    } else {
+      alert("Something went wrong. Please try again.");
     }
   };
 
@@ -42,6 +48,7 @@ export default function BuildYourHome() {
           value={form.homeType}
           onChange={handleChange}
           className="w-full border p-3 rounded"
+          required
         >
           <option value="">Select Home Type</option>
           <option value="studio">Studio</option>
@@ -57,6 +64,7 @@ export default function BuildYourHome() {
           onChange={handleChange}
           placeholder="Preferred Delivery Location"
           className="w-full border p-3 rounded"
+          required
         />
         <input
           type="text"
@@ -65,6 +73,7 @@ export default function BuildYourHome() {
           onChange={handleChange}
           placeholder="Budget (USD)"
           className="w-full border p-3 rounded"
+          required
         />
         <button
           type="submit"
