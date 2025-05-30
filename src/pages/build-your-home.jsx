@@ -1,4 +1,34 @@
+import { useState } from "react";
+
 export default function BuildYourHome() {
+  const [form, setForm] = useState({
+    homeType: "",
+    location: "",
+    budget: "",
+  });
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await fetch("https://email-server-git-main-william-barrys-projects.vercel.app/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          subject: "New Build Your Home Request",
+          html: `<p><strong>Home Type:</strong> ${form.homeType}</p><p><strong>Location:</strong> ${form.location}</p><p><strong>Budget:</strong> ${form.budget}</p>`,
+        }),
+      });
+      alert("Build request submitted!");
+      setForm({ homeType: "", location: "", budget: "" });
+    } catch (error) {
+      alert("There was an error. Please try again.");
+    }
+  };
+
   return (
     <main className="pt-32 p-8 text-center space-y-6">
       <h1 className="text-4xl font-bold text-gray-900">Build Your Modular Home</h1>
@@ -6,8 +36,13 @@ export default function BuildYourHome() {
         Use this quick form to tell us what you’re looking for, and we’ll provide an estimate.
       </p>
 
-      <form className="max-w-md mx-auto mt-8 space-y-4">
-        <select className="w-full border p-3 rounded">
+      <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-8 space-y-4">
+        <select
+          name="homeType"
+          value={form.homeType}
+          onChange={handleChange}
+          className="w-full border p-3 rounded"
+        >
           <option value="">Select Home Type</option>
           <option value="studio">Studio</option>
           <option value="1-bedroom">1 Bedroom</option>
@@ -17,11 +52,17 @@ export default function BuildYourHome() {
 
         <input
           type="text"
+          name="location"
+          value={form.location}
+          onChange={handleChange}
           placeholder="Preferred Delivery Location"
           className="w-full border p-3 rounded"
         />
         <input
           type="text"
+          name="budget"
+          value={form.budget}
+          onChange={handleChange}
           placeholder="Budget (USD)"
           className="w-full border p-3 rounded"
         />

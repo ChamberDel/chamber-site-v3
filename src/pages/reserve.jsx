@@ -13,10 +13,28 @@ export default function Reserve() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Reservation submitted! We'll contact you shortly.");
-    // Here you would send `form` data to a backend or email service
+    try {
+      await fetch("https://email-server-git-main-william-barrys-projects.vercel.app/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          subject: "New Home Reservation",
+          html: `
+            <p><strong>Name:</strong> ${form.name}</p>
+            <p><strong>Email:</strong> ${form.email}</p>
+            <p><strong>Phone:</strong> ${form.phone}</p>
+            <p><strong>Model:</strong> ${form.model}</p>
+            <p><strong>Message:</strong> ${form.message}</p>
+          `,
+        }),
+      });
+      alert("Reservation submitted! We'll contact you shortly.");
+      setForm({ name: "", email: "", phone: "", model: "", message: "" });
+    } catch (error) {
+      alert("There was an error. Please try again.");
+    }
   };
 
   return (
@@ -33,7 +51,7 @@ export default function Reserve() {
             value={form.name}
             onChange={handleChange}
             required
-            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-500"
+            className="w-full border border-gray-300 rounded px-3 py-2"
           />
         </div>
 
@@ -45,7 +63,7 @@ export default function Reserve() {
             value={form.email}
             onChange={handleChange}
             required
-            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-500"
+            className="w-full border border-gray-300 rounded px-3 py-2"
           />
         </div>
 
@@ -57,7 +75,7 @@ export default function Reserve() {
             value={form.phone}
             onChange={handleChange}
             required
-            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-500"
+            className="w-full border border-gray-300 rounded px-3 py-2"
           />
         </div>
 
@@ -68,10 +86,10 @@ export default function Reserve() {
             value={form.model}
             onChange={handleChange}
             required
-            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-500"
+            className="w-full border border-gray-300 rounded px-3 py-2"
           >
             <option value="">-- Choose One --</option>
-			<option value="Custom">Custom - up to 800 sq ft</option>
+            <option value="Custom">Custom - up to 800 sq ft</option>
             <option value="1-bedroom">1 Bedroom - 400 sq ft</option>
             <option value="2-bedroom">2 Bedroom - 800 sq ft</option>
           </select>
@@ -84,7 +102,7 @@ export default function Reserve() {
             value={form.message}
             onChange={handleChange}
             rows="4"
-            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-500"
+            className="w-full border border-gray-300 rounded px-3 py-2"
             placeholder="Anything specific we should know?"
           ></textarea>
         </div>
