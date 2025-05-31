@@ -5,6 +5,8 @@ export default function BuildYourHome() {
     homeType: "",
     location: "",
     budget: "",
+    email: "",
+    name: "",
   });
 
   const handleChange = (e) => {
@@ -13,26 +15,22 @@ export default function BuildYourHome() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = {
-      email: "noreply@chamber-site.com",
-      message: `Build Your Home Form:
-Home Type: ${form.homeType}
-Location: ${form.location}
-Budget: ${form.budget}`,
-    };
 
-    const response = await fetch("https://email-server-git-main-william-barrys-projects.vercel.app/api/send-email", {
+    const message = `Home Type: ${form.homeType}\nDelivery Location: ${form.location}\nBudget: ${form.budget}`;
+
+    await fetch("https://email-server-git-main-william-barrys-projects.vercel.app/api/send-email", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        name: form.name || "Unknown",
+        email: form.email,
+        subject: "Build Your Home",
+        message,
+      }),
     });
 
-    if (response.ok) {
-      alert("Your request has been submitted!");
-      setForm({ homeType: "", location: "", budget: "" });
-    } else {
-      alert("Something went wrong. Please try again.");
-    }
+    alert("Quote request submitted!");
+    setForm({ homeType: "", location: "", budget: "", email: "", name: "" });
   };
 
   return (
@@ -43,12 +41,29 @@ Budget: ${form.budget}`,
       </p>
 
       <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-8 space-y-4">
+        <input
+          name="name"
+          type="text"
+          placeholder="Full Name"
+          value={form.name}
+          onChange={handleChange}
+          className="w-full border p-3 rounded"
+        />
+        <input
+          name="email"
+          type="email"
+          placeholder="Email Address"
+          value={form.email}
+          onChange={handleChange}
+          className="w-full border p-3 rounded"
+          required
+        />
         <select
           name="homeType"
           value={form.homeType}
           onChange={handleChange}
-          className="w-full border p-3 rounded"
           required
+          className="w-full border p-3 rounded"
         >
           <option value="">Select Home Type</option>
           <option value="studio">Studio</option>
@@ -56,24 +71,21 @@ Budget: ${form.budget}`,
           <option value="2-bedroom">2 Bedroom</option>
           <option value="custom">Custom</option>
         </select>
-
         <input
-          type="text"
           name="location"
+          type="text"
+          placeholder="Preferred Delivery Location"
           value={form.location}
           onChange={handleChange}
-          placeholder="Preferred Delivery Location"
           className="w-full border p-3 rounded"
-          required
         />
         <input
-          type="text"
           name="budget"
+          type="text"
+          placeholder="Budget (USD)"
           value={form.budget}
           onChange={handleChange}
-          placeholder="Budget (USD)"
           className="w-full border p-3 rounded"
-          required
         />
         <button
           type="submit"

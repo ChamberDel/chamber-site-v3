@@ -15,41 +15,28 @@ export default function Reserve() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = {
-      email: form.email,
-      message: `Reserve Request:
-Name: ${form.name}
-Phone: ${form.phone}
-Model: ${form.model}
-Message: ${form.message}`,
-    };
 
-    const response = await fetch("https://email-server-git-main-william-barrys-projects.vercel.app/api/send-email", {
+    const message = `Phone: ${form.phone}\nModel: ${form.model}\nMessage: ${form.message}`;
+
+    await fetch("https://email-server-git-main-william-barrys-projects.vercel.app/api/send-email", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        name: form.name,
+        email: form.email,
+        subject: "Reservation",
+        message,
+      }),
     });
 
-    if (response.ok) {
-      alert("Reservation submitted! We'll contact you shortly.");
-      setForm({
-        name: "",
-        email: "",
-        phone: "",
-        model: "",
-        message: "",
-      });
-    } else {
-      alert("Something went wrong. Please try again.");
-    }
+    alert("Reservation submitted! We'll contact you shortly.");
+    setForm({ name: "", email: "", phone: "", model: "", message: "" });
   };
 
   return (
     <div className="max-w-2xl mx-auto mt-24 px-4">
       <h1 className="text-4xl font-bold text-center mb-6">Reserve Your Modular Home</h1>
-      <p className="text-center text-gray-600 mb-8">
-        Fill out the form below to reserve a unit. A representative will follow up with next steps.
-      </p>
+      <p className="text-center text-gray-600 mb-8">Fill out the form below to reserve a unit. A representative will follow up with next steps.</p>
 
       <form onSubmit={handleSubmit} className="space-y-6 bg-white p-6 rounded-xl shadow-md">
         <div>
@@ -111,8 +98,8 @@ Message: ${form.message}`,
             value={form.message}
             onChange={handleChange}
             rows="4"
-            placeholder="Anything specific we should know?"
             className="w-full border border-gray-300 rounded px-3 py-2"
+            placeholder="Anything specific we should know?"
           ></textarea>
         </div>
 

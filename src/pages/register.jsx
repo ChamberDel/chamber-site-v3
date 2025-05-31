@@ -1,10 +1,7 @@
 import { useState } from "react";
 
 export default function Register() {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-  });
+  const [form, setForm] = useState({ name: "", email: "" });
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -12,23 +9,18 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = {
-      email: form.email,
-      message: `Register - Name: ${form.name}`,
-    };
-
-    const response = await fetch("https://email-server-git-main-william-barrys-projects.vercel.app/api/send-email", {
+    await fetch("https://email-server-git-main-william-barrys-projects.vercel.app/api/send-email", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        name: form.name,
+        email: form.email,
+        subject: "Register",
+        message: "",
+      }),
     });
-
-    if (response.ok) {
-      alert("Thank you for registering your interest!");
-      setForm({ name: "", email: "" }); // Reset form
-    } else {
-      alert("Something went wrong. Please try again.");
-    }
+    alert("Thank you for registering your interest!");
+    setForm({ name: "", email: "" });
   };
 
   return (
@@ -40,22 +32,22 @@ export default function Register() {
 
       <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-8 space-y-4">
         <input
-          type="text"
           name="name"
+          type="text"
           placeholder="Full Name"
           value={form.name}
           onChange={handleChange}
-          className="w-full border p-3 rounded"
           required
+          className="w-full border p-3 rounded"
         />
         <input
-          type="email"
           name="email"
+          type="email"
           placeholder="Email Address"
           value={form.email}
           onChange={handleChange}
-          className="w-full border p-3 rounded"
           required
+          className="w-full border p-3 rounded"
         />
         <button
           type="submit"
@@ -67,3 +59,4 @@ export default function Register() {
     </main>
   );
 }
+m
