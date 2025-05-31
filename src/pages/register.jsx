@@ -14,7 +14,10 @@ export default function Register() {
     setError("");
 
     try {
-      const response = await axios.post("/api/register", { name, email });
+      const response = await axios.post(
+        "https://email-server-git-main-william-barrys-projects.vercel.app/api/send-email",
+        { name, email }
+      );
 
       if (response.status === 200) {
         setSuccess(true);
