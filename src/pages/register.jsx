@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 
 export default function Register() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -13,7 +14,7 @@ export default function Register() {
     setError("");
 
     try {
-      const response = await axios.post("/api/register", { email });
+      const response = await axios.post("/api/register", { name, email });
 
       if (response.status === 200) {
         setSuccess(true);
@@ -35,6 +36,16 @@ export default function Register() {
       >
         <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
         <label className="block mb-4">
+          <span className="block text-gray-700 font-medium mb-1">Name</span>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            className="w-full border border-gray-300 rounded-md p-2"
+          />
+        </label>
+        <label className="block mb-4">
           <span className="block text-gray-700 font-medium mb-1">Email</span>
           <input
             type="email"
@@ -51,7 +62,7 @@ export default function Register() {
           <button
             type="submit"
             disabled={loading}
-            className="bg-black text-white w-full py-2 px-4 rounded hover:bg-gray-900 transition"
+            className="bg-blue-600 text-white w-full py-2 px-4 rounded hover:bg-blue-700 transition"
           >
             {loading ? "Submitting..." : "Register"}
           </button>
@@ -60,3 +71,4 @@ export default function Register() {
     </div>
   );
 }
+
