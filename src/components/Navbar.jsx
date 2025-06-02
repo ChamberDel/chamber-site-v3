@@ -10,7 +10,7 @@ const Navbar = () => {
           <img
             src="/chamber-logo.png"
             alt="The Chamber Logo"
-            style={{ height: "100px" }}
+            style={{ height: "80px" }}
           />
         </Link>
         <div className="space-x-6">
