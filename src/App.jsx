@@ -12,6 +12,7 @@ import BuildYourHome from "./pages/build-your-home";
 import Gallery from "./pages/gallery";
 import Testimonials from "./pages/testimonials";
 import Support from "./pages/support";
+import ChamberProducts from "./pages/chamberproducts"; // <-- Imported here
 
 function Home() {
   return (
@@ -36,6 +37,11 @@ function Home() {
       </Link>
 
       <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto pt-12">
+        <Link to="/chamber-products" className="block p-6 border rounded-xl hover:shadow-lg transition">
+          <h3 className="font-semibold text-lg mb-2 text-gray-900">Chamber Products</h3>
+          <p className="text-gray-600 text-sm">Explore all our modular home models and specifications.</p>
+        </Link>
+
         <Link to="/register" className="block p-6 border rounded-xl hover:shadow-lg transition">
           <h3 className="font-semibold text-lg mb-2 text-gray-900">Register</h3>
           <p className="text-gray-600 text-sm">Sign up to get early updates and exclusive offers.</p>
@@ -66,6 +72,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/chamber-products" element={<ChamberProducts />} /> {/* 👈 Added here */}
         <Route path="/register" element={<Register />} />
         <Route path="/build-your-home" element={<BuildYourHome />} />
         <Route path="/gallery" element={<Gallery />} />
@@ -75,10 +82,9 @@ function App() {
         <Route path="/testimonials" element={<Testimonials />} />
         <Route path="/support" element={<Support />} />
       </Routes>
-      <TestimonialBubble /> {/* Always visible floating button */}
+      <TestimonialBubble />
     </>
   );
 }
 
 export default App;
-
